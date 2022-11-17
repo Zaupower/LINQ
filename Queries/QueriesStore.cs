@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Queries
@@ -24,8 +25,7 @@ namespace Queries
         {
             //There is a sequence of strings.
             //Combine all strings into one.
-
-            throw new NotImplementedException();
+            return str.Aggregate((current, next) => current + next);
         }
 
         public static string Query3(int l, IEnumerable<string> str)
@@ -34,32 +34,41 @@ namespace Queries
             //Output the first string from A that starts with a digit and has length L.
             //If there are no required strings in the sequence A, then output the string "Not found".
             //Indication. To handle the situation associated with the absence of required rows, use the ?? operation.
+            string result;
 
-            throw new NotImplementedException();
+            try{
+                result = str.First(i => i.Length == l && char.IsDigit(i[0]));
+            }
+            catch
+            {
+                return "Not found";
+            }
+            return result;
         }
 
         public static int Query4(char c, IEnumerable<string> str)
         {
             //Query4. Given a C character and a string sequence A.
             //Find the number of A elements that contain more than one character, provided that these elements start and end with C.
-
-            throw new NotImplementedException();
+            int counter = str.Count((i => i.Length > 1 && i[0].Equals(c) && i[i.Length-1].Equals( c)));
+            return counter;
         }
 
         public static int Query5(IEnumerable<string> str)
         {
             //Query5. A string sequence is given.
             //Find the sum of the lengths of all strings in the given sequence.
-
-            throw new NotImplementedException();
+            
+            return str.Sum((i => i.Length));
         }
 
         public static string Query6(IEnumerable<string> str)
         {
             //Query6. A string sequence is given.
             //Get a string consisting of the initial characters of all strings in the source sequence.
-
-            throw new NotImplementedException();
+            string initials = str.Where(s => !string.IsNullOrEmpty(s))
+                          .Aggregate("", (xs, x) => xs + x.First());
+            return initials;
         }
 
         public static IEnumerable<int> Query7(int k, IEnumerable<int> a)
