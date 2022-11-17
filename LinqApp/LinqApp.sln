@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqApp", "LinqApp.csproj", "{75B13FA4-D84D-4D06-971A-4D274DA7743A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "..\Tests\Tests.csproj", "{A51D7FD2-EAD8-4883-8E5B-D65ED23318B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\Tests\Tests.csproj", "{A51D7FD2-EAD8-4883-8E5B-D65ED23318B5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queries", "..\Queries\Queries.csproj", "{360D33FD-FC56-4BA3-88E6-9FE00E33E6EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queries", "..\Queries\Queries.csproj", "{360D33FD-FC56-4BA3-88E6-9FE00E33E6EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{75B13FA4-D84D-4D06-971A-4D274DA7743A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75B13FA4-D84D-4D06-971A-4D274DA7743A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75B13FA4-D84D-4D06-971A-4D274DA7743A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75B13FA4-D84D-4D06-971A-4D274DA7743A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A51D7FD2-EAD8-4883-8E5B-D65ED23318B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A51D7FD2-EAD8-4883-8E5B-D65ED23318B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A51D7FD2-EAD8-4883-8E5B-D65ED23318B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
