@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
@@ -99,9 +100,15 @@ namespace Queries
 
             //d e k > 0
             //Take from index k to the end 
-            IEnumerable<int> result1 = a.TakeWhile(i=> i < d);
+            List<int> fuckingResult = new List<int>();
+            
+            fuckingResult = (a.TakeWhile(f=> f.CompareTo(d) < 1).ToList());
+
+            IEnumerable<int> result1 = a.TakeWhile(item => item.CompareTo(d) < 1);
+
             IEnumerable<int> result2 = a.Skip(k).Distinct();
-            return result1.Concat(result2).OrderBy(i => i);
+
+            return result1.Concat(result2).OrderBy(i => i).Distinct();
         }
 
         public static IEnumerable<string> Query10(IEnumerable<int> n)
