@@ -77,8 +77,8 @@ namespace Queries
             //Find the set-theoretic difference of two fragments A: the first contains all even numbers,
             //and the second - all numbers with ordinal numbers greater than K.
             //In the resulting sequence (not containing identical elements), reverse the order of the elements.
-
-            throw new NotImplementedException();
+            int[] result = a.Take(k).Where((i => i % 2 == 0) ).Distinct().ToArray();
+            return result.Reverse();
         }
 
         public static IEnumerable<string> Query8(int k, IEnumerable<string> a)
