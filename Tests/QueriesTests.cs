@@ -69,7 +69,6 @@ namespace Tests
             var result = QueriesStore.Query8(k, collection);
             CollectionAssert.AreEqual(expected, result);
         }
-
         [TestCase(20, 8, new[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90, 5 }, new int[] { 90, 12, 9, 8, 6, 5, 2, 0 })]
         [TestCase(87, 8, new[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90, 5 }, new int[] { 90, 12, 9, 8, 6, 5, 2, 0 })]
         [TestCase(88, 8, new[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90, 5 }, new int[] { 90, 88, 12, 9, 8, 6, 5, 4, 3, 2, 1, 0 })]

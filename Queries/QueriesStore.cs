@@ -86,8 +86,8 @@ namespace Queries
             //Query8. An integer K (> 0) and a string sequence A are given.
             //Sequence strings contain only numbers and capital letters of the Latin alphabet.
             //Extract from A all strings of length K that end in a digit, sorting them in an ascending order.
-
-            throw new NotImplementedException();
+            IEnumerable<string> result = a.Where(s => s.Length == k && char.IsDigit(s.Last())).OrderBy(i => i);
+            return result;
         }
 
         public static IEnumerable<int> Query9(int d, int k, IEnumerable<int> a)
@@ -97,7 +97,11 @@ namespace Queries
             //greater D (not including it), and the second - all elements, starting from the element with the ordinal number K.
             //Sort the resulting sequence (not containing identical elements) in descending order.
 
-            throw new NotImplementedException();
+            //d e k > 0
+            //Take from index k to the end 
+            IEnumerable<int> result1 = a.TakeWhile(i=> i < d);
+            IEnumerable<int> result2 = a.Skip(k).Distinct();
+            return result1.Concat(result2).OrderBy(i => i);
         }
 
         public static IEnumerable<string> Query10(IEnumerable<int> n)
