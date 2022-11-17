@@ -100,15 +100,13 @@ namespace Queries
 
             //d e k > 0
             //Take from index k to the end 
-            List<int> fuckingResult = new List<int>();
-            
-            fuckingResult = (a.TakeWhile(f=> f.CompareTo(d) < 1).ToList());
+            List<int> result11 = new List<int>();
+            List<int> result22 = new List<int>();
+            result11 = (a.TakeWhile(f=> f.CompareTo(d) < 1).ToList());
+            result22 = a.Skip(k-1).ToList();
+            List<int> resultConcat = result11.Concat(result22).Distinct().OrderByDescending(i => i).ToList();
 
-            IEnumerable<int> result1 = a.TakeWhile(item => item.CompareTo(d) < 1);
-
-            IEnumerable<int> result2 = a.Skip(k).Distinct();
-
-            return result1.Concat(result2).OrderBy(i => i).Distinct();
+            return resultConcat;
         }
 
         public static IEnumerable<string> Query10(IEnumerable<int> n)
