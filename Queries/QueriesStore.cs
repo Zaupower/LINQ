@@ -38,7 +38,7 @@ namespace Queries
             string result;
 
             try{
-                result = str.First(i => i.Length == l && char.IsDigit(i[0]));
+                result = str.First(i => l > 0 && i.Length == l && char.IsDigit(i[0]));
             }
             catch
             {
@@ -78,7 +78,7 @@ namespace Queries
             //Find the set-theoretic difference of two fragments A: the first contains all even numbers,
             //and the second - all numbers with ordinal numbers greater than K.
             //In the resulting sequence (not containing identical elements), reverse the order of the elements.
-            int[] result = a.Take(k).Where((i => i % 2 == 0) ).Distinct().ToArray();
+            int[] result = k> 0 ? a.Take(k).Where(i => i % 2 == 0 ).Distinct().ToArray() : new int[];
             return result.Reverse();
         }
 
@@ -87,7 +87,7 @@ namespace Queries
             //Query8. An integer K (> 0) and a string sequence A are given.
             //Sequence strings contain only numbers and capital letters of the Latin alphabet.
             //Extract from A all strings of length K that end in a digit, sorting them in an ascending order.
-            IEnumerable<string> result = a.Where(s => s.Length == k && char.IsDigit(s.Last())).OrderBy(i => i);
+            IEnumerable<string> result = a.Where(s => k > 0 && s.Length == k && char.IsDigit(s.Last())).OrderBy(i => i);
             return result;
         }
 
@@ -102,8 +102,9 @@ namespace Queries
             //Take from index k to the end 
             List<int> result11 = new List<int>();
             List<int> result22 = new List<int>();
-            result11 = a.TakeWhile(f=> f.CompareTo(d) < 1).ToList();
-            result22 = a.Skip(k-1).ToList();
+            result11 = a.TakeWhile( i=> i.CompareTo(d) < 1).ToList();
+            result22 = k > 0 ? a.Skip(k-1).ToList() : new List<int>();
+
             List<int> resultConcat = result11.Concat(result22).Distinct().OrderByDescending(i => i).ToList();
 
             return resultConcat;
@@ -114,9 +115,9 @@ namespace Queries
             //Query10. A sequence of positive integers is given.
             //Processing only odd numbers, get a sequence of their string representations and sort it in ascending order.
             
-            int[] r1 = n.Where(i => i % 2 != 0).ToArray();
+            int[] r1 = n.Where(i => i > 0 && i % 2 != 0).ToArray();
             string[] result = r1.Select(i => i.ToString()).ToArray();
-            return result;
+            return result.OrderBy(i=>i);
         }
 
         public static IEnumerable<char> Query11(IEnumerable<string> str)
@@ -126,8 +127,10 @@ namespace Queries
             //if the corresponding string of the source sequence has an odd length, then as
             //character the first character of this string is taken; otherwise, the last character of the string is taken.
             //Sort the received characters in descending order of their codes.
-
-            throw new NotImplementedException();
+            char[] strOds = str.Where(i => !string.IsNullOrEmpty(i) && i.Length % 2 == 0 ).Select(i => i.Last()).ToArray();
+            char[] strEvens = str.Where(i => !string.IsNullOrEmpty(i) && i.Length % 2 != 0).Select(i => i.First()).ToArray();
+            char[] result = strOds.Concat(strEvens).OrderByDescending(i => i).ToArray();
+            return result;
         }
 
         public static IEnumerable<int> Query12(int k1, int k2, IEnumerable<int> a, IEnumerable<int> b)
