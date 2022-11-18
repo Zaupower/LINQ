@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Queries
 {
@@ -155,8 +156,16 @@ namespace Queries
             //determined by the last digits of the original numbers.
             //Represent the found union as a sequence of strings containing the first and second elements of the pair,
             //separated by a hyphen, e.g. "49-129".
-            List<string> excludedPips = a.Zip(b, (i, j) => i%10 == j%10 ? i+" - "+j : null).ToList();
-            return null;
+            List<string> res = new List<string>();
+            foreach (int aItem in a)
+            {
+                var what = b.Where(i => aItem % 10 == i % 10).ToList();
+                foreach (int whatItem in what)
+                {
+                    res.Add(aItem + " - " + whatItem);
+                }
+            }
+            return res;
         }
 
         public static IEnumerable<string> Query14(IEnumerable<string> a, IEnumerable<string> b)
