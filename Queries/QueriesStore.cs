@@ -212,6 +212,7 @@ namespace Queries
             //Return a dictionary, where the key is the year, the value is the number of different schools that applicants graduated from this year.
             //Order the elements of the dictionary in ascending order of the number of schools, and for matching numbers - in ascending order of the year number.
             
+            //Falta definir new com ano de graduacao e outro parametro para fazer order by ano de grad e thenBy outro parametro
             var result = enrollees.GroupBy(l => l.YearGraduate)
                 //.OrderBy(x => x)//.ThenBy(g=> g.Key)
                 .Select(g => new {Date = g.Key,Count = g.Distinct().Count()}).ToDictionary(a=> a.Date, b=> b.Count);
