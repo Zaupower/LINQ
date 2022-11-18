@@ -198,13 +198,11 @@ namespace Queries
             //at least one of the numbers in the sequence A), and S is the sum of all numbers from A that end in D.
             //Order the resulting sequence in an ascending order of keys.
             //Indication. Use the GroupBy method.
-
-            //var result = a.GroupBy(l => l % 10, f=>f)
-            //    .OrderBy(l=> l.Key).ThenBy(f=> f)
-            //    .Select(f => new { TheNumber = f.Key, Count = f }).ToList();
-
-            var result = a.GroupBy(l => new { equa = l % 10, value = l }).OrderBy(a => a.Key.equa).Select(a => a.Key.equa +": "+a.Key.value).ToList();
-            throw new NotImplementedException();
+            
+            var result =  a.GroupBy(l => new { equa = l % 10, value = l }).OrderBy(a => a.Key.equa).Select(a => a.Key.equa +": "+a.Key.value).ToList();
+            //Falta percorrer o array e sumar os valores onde a key e igual
+            return result;
+            
         }
 
         public static IDictionary<uint, int> Query16(IEnumerable<Enrollee> enrollees)
