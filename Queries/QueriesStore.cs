@@ -198,7 +198,9 @@ namespace Queries
             //at least one of the numbers in the sequence A), and S is the sum of all numbers from A that end in D.
             //Order the resulting sequence in an ascending order of keys.
             //Indication. Use the GroupBy method.
-
+            var result = a.GroupBy(l => l % 10)
+                .OrderBy(x=> x.Key)
+                .Select(g => new { TheNumber = g.Key, Count = g }).ToList();
             throw new NotImplementedException();
         }
 
