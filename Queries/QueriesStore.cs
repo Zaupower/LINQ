@@ -198,10 +198,19 @@ namespace Queries
             //at least one of the numbers in the sequence A), and S is the sum of all numbers from A that end in D.
             //Order the resulting sequence in an ascending order of keys.
             //Indication. Use the GroupBy method.
-            
-            var result =  a.GroupBy(l => new { equa = l % 10, value = l }).OrderBy(a => a.Key.equa).Select(a => a.Key.equa +": "+a.Key.value).ToList();
+
+            var result = a.GroupBy(l => new { id = l % 10, value = l }).OrderBy(a => a.Key.id).ToDictionary(a => new { a.Key.id, a.Key.value }).ToList();
+            var resultDic = result.ToDictionary(a => a.Key, b => b.Value);
+            //var rr = result.Zip(result, (i, j) => i.id == j.id ? i.value + j.value : i.value).ToList();
+            //var res = resultDic
+            //            .SelectMany(d => d.Value)
+            //            .GroupBy(kvp => kvp.Va)
+            //            .ToDictionary(g => g.Key, g => g.Sum(kvp => kvp.Value));
+
+            //ver 
+            //https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.selectmany?view=net-7.0
             //Falta percorrer o array e sumar os valores onde a key e igual
-            return result;
+            return null;
             
         }
 
