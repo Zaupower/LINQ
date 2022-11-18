@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
@@ -154,8 +155,8 @@ namespace Queries
             //determined by the last digits of the original numbers.
             //Represent the found union as a sequence of strings containing the first and second elements of the pair,
             //separated by a hyphen, e.g. "49-129".
-
-            throw new NotImplementedException();
+            List<string> excludedPips = a.Zip(b, (i, j) => i%10 == j%10 ? i+" - "+j : null).ToList();
+            return null;
         }
 
         public static IEnumerable<string> Query14(IEnumerable<string> a, IEnumerable<string> b)
