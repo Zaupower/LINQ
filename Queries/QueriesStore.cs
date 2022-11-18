@@ -102,7 +102,7 @@ namespace Queries
             //Take from index k to the end 
             List<int> result11 = new List<int>();
             List<int> result22 = new List<int>();
-            result11 = (a.TakeWhile(f=> f.CompareTo(d) < 1).ToList());
+            result11 = a.TakeWhile(f=> f.CompareTo(d) < 1).ToList();
             result22 = a.Skip(k-1).ToList();
             List<int> resultConcat = result11.Concat(result22).Distinct().OrderByDescending(i => i).ToList();
 
@@ -113,8 +113,10 @@ namespace Queries
         {
             //Query10. A sequence of positive integers is given.
             //Processing only odd numbers, get a sequence of their string representations and sort it in ascending order.
-
-            throw new NotImplementedException();
+            
+            int[] r1 = n.Where(i => i % 2 != 0).ToArray();
+            string[] result = r1.Select(i => i.ToString()).ToArray();
+            return result;
         }
 
         public static IEnumerable<char> Query11(IEnumerable<string> str)
