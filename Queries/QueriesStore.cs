@@ -209,13 +209,10 @@ namespace Queries
             //Return a dictionary, where the key is the year, the value is the number of different schools that applicants graduated from this year.
             //Order the elements of the dictionary in ascending order of the number of schools, and for matching numbers - in ascending order of the year number.
             
-            var count2 = enrollees.GroupBy(l => l.YearGraduate)
-                .Select(g => new {Date = g.Key,Count = g.Distinct().Count()}).ToList();
-            //var result =
-            // as Jon Skeet pointed out, OrderBy is useless here, I just leave it 
-            // show how to use OrderBy in a LINQ query
-            //enrollees.OrderBy(mc => mc.SchoolNumber ).ToDictionary(a => a.YearGraduate, b => enrollees.Count(i=> i.YearGraduate == mc.YearGraduate));
-            throw new NotImplementedException();
+            var result = enrollees.GroupBy(l => l.YearGraduate)
+                .Select(g => new {Date = g.Key,Count = g.Distinct().Count()}).ToDictionary(a=> a.Date, b=> b.Count);
+            
+            return result;
         }
     }
 }
