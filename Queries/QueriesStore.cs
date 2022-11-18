@@ -178,6 +178,9 @@ namespace Queries
             //colon-separated, e.g. "AB: CD". The order of the pairs must be determined by the order
             //first elements of pairs (in ascending order), and for equal first elements - by the order of the second elements of pairs (in descending order).
 
+
+            //maybe useful??
+            //https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.prepend?view=net-7.0
             List<string> res = new List<string>();
             foreach (string aItem in a)
             {
