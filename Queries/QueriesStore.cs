@@ -198,9 +198,12 @@ namespace Queries
             //at least one of the numbers in the sequence A), and S is the sum of all numbers from A that end in D.
             //Order the resulting sequence in an ascending order of keys.
             //Indication. Use the GroupBy method.
-            var result = a.GroupBy(l => l % 10)
-                .OrderBy(x=> x.Key)
-                .Select(g => new { TheNumber = g.Key, Count = g }).ToList();
+
+            //var result = a.GroupBy(l => l % 10, f=>f)
+            //    .OrderBy(l=> l.Key).ThenBy(f=> f)
+            //    .Select(f => new { TheNumber = f.Key, Count = f }).ToList();
+
+            var result = a.GroupBy(l => new { equa = l % 10, value = l }).OrderBy(a => a.Key.equa).Select(a => a.Key.equa +": "+a.Key.value).ToList();
             throw new NotImplementedException();
         }
 
@@ -212,6 +215,7 @@ namespace Queries
             //Order the elements of the dictionary in ascending order of the number of schools, and for matching numbers - in ascending order of the year number.
             
             var result = enrollees.GroupBy(l => l.YearGraduate)
+                //.OrderBy(x => x)//.ThenBy(g=> g.Key)
                 .Select(g => new {Date = g.Key,Count = g.Distinct().Count()}).ToDictionary(a=> a.Date, b=> b.Count);
             
             return result;
