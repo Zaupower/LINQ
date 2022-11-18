@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -159,10 +160,10 @@ namespace Queries
             List<string> res = new List<string>();
             foreach (int aItem in a)
             {
-                var what = b.Where(i => aItem % 10 == i % 10).ToList();
-                foreach (int whatItem in what)
+                var bItemList = b.Where(i => aItem % 10 == i % 10).ToList();
+                foreach (int bItem in bItemList)
                 {
-                    res.Add(aItem + " - " + whatItem);
+                    res.Add(aItem + " - " + bItem);
                 }
             }
             return res;
@@ -177,7 +178,16 @@ namespace Queries
             //colon-separated, e.g. "AB: CD". The order of the pairs must be determined by the order
             //first elements of pairs (in ascending order), and for equal first elements - by the order of the second elements of pairs (in descending order).
 
-            throw new NotImplementedException();
+            List<string> res = new List<string>();
+            foreach (string aItem in a)
+            {
+                var bItemList = b.Where(i => aItem.Length == i.Length).ToList();
+                foreach (string bItem in bItemList)
+                {
+                    res.Add(aItem + ":" + bItem);
+                }
+            }
+            return res.OrderByDescending(i=>i);
         }
 
         public static IEnumerable<string> Query15(IEnumerable<int> a)
@@ -198,7 +208,13 @@ namespace Queries
             //includes the following fields: <School number> <Entry year> <Last name>
             //Return a dictionary, where the key is the year, the value is the number of different schools that applicants graduated from this year.
             //Order the elements of the dictionary in ascending order of the number of schools, and for matching numbers - in ascending order of the year number.
-
+            
+            var count2 = enrollees.GroupBy(l => l.YearGraduate)
+                .Select(g => new {Date = g.Key,Count = g.Distinct().Count()}).ToList();
+            //var result =
+            // as Jon Skeet pointed out, OrderBy is useless here, I just leave it 
+            // show how to use OrderBy in a LINQ query
+            //enrollees.OrderBy(mc => mc.SchoolNumber ).ToDictionary(a => a.YearGraduate, b => enrollees.Count(i=> i.YearGraduate == mc.YearGraduate));
             throw new NotImplementedException();
         }
     }
