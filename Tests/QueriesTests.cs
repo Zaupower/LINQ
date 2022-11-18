@@ -102,7 +102,8 @@ namespace Tests
             CollectionAssert.AreEqual(expected, result);
         }
 
-        [TestCase(5, 8, new int[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90 }, new int[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90 }, new[] { 0, 1, 2, 3, 4, 5, 5, 6, 6, 6, 6, 8, 9, 12, 88, 90 })]
+        [TestCase(5, 8, new int[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90 }, new int[] { 12, 88, 1, 3, 5, 4, 6, 6, 2, 5, 8, 9, 0, 90 }, 
+            new[] { 0, 1, 2, 3, 4, 5, 5, 6, 6, 6, 6, 8, 9, 12, 88, 90 })]
         [TestCase(5, 8, new int[] { 12, 88, 1 }, new int[] { 30, 50, 40 }, new[] { 12, 88 })]
         [TestCase(90, 80, new int[] { 12, 88, 1 }, new int[] { 30, 50, 40 }, new[] { 30, 40, 50 })]
         [TestCase(90, 8, new int[] { 12, 88, 1 }, new int[] { 30, 50, 40 }, new int[0])]
