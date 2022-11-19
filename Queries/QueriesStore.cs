@@ -161,6 +161,7 @@ namespace Queries
             foreach (int aItem in a)
             {
                 var bItemList = b.Where(i => aItem % 10 == i % 10).ToList();
+
                 foreach (int bItem in bItemList)
                 {
                     res.Add(aItem + " - " + bItem);
@@ -202,20 +203,10 @@ namespace Queries
             //Order the resulting sequence in an ascending order of keys.
             //Indication. Use the GroupBy method.
 
-            var result = a.GroupBy(l => new { id = l % 10, value = l }).OrderBy(a => a.Key.id).Select(a => new { a.Key.id, a.Key.value }).ToList();
-            List<Tuple<int, int>> sum = new List<Tuple<int, int>>();
-            
-            //Sum values
-            foreach (var item in result)
-            {
-                int currentKey = item.id;
-                
-                sum.Add(new Tuple<int, int>(currentKey, result.Where(j => j.id == currentKey).Sum(o => o.value)));
-            }
-
-            var list = sum.GroupBy(x => x.Item1).Select(y => y.First()).ToList();//Remove duplicates
-            List<string> res = list.Select(i => i.Item1 + ": " + i.Item2).ToList();//Parse to string 
-            return res;
+            var result = a.GroupBy(l => new { Id = l % 10, Value = l }).OrderBy(a => a.Key.Id).Select(a => new { a.Key.Id, a.Key.Value }).ToList();
+            var sumByKey = result.GroupBy(x => x.Id).Select(g => new { Id = g.Key, Sum = g.Sum(x => x.Value) }).ToList();//Sum by id and remove dupliates
+            var listString = sumByKey.Select(y => y.Id + ": "+ y.Sum).ToList();//Cast to Sring
+            return listString;
             
         }
 
@@ -225,10 +216,8 @@ namespace Queries
             //includes the following fields: <School number> <Entry year> <Last name>
             //Return a dictionary, where the key is the year, the value is the number of different schools that applicants graduated from this year.
             //Order the elements of the dictionary in ascending order of the number of schools, and for matching numbers - in ascending order of the year number.
-            
-            //Falta definir new com ano de graduacao e outro parametro para fazer order by ano de grad e thenBy outro parametro
+                       
             var result = enrollees.GroupBy(l => l.YearGraduate)
-                //.OrderBy(x => x)//.ThenBy(g=> g.Key)
                 .Select(g => new {Date = g.Key,Count = g.Distinct().Count()}).ToDictionary(a=> a.Date, b=> b.Count);
             
             return result;
