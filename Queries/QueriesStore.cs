@@ -202,18 +202,20 @@ namespace Queries
             //Order the resulting sequence in an ascending order of keys.
             //Indication. Use the GroupBy method.
 
-            var result = a.GroupBy(l => new { id = l % 10, value = l }).OrderBy(a => a.Key.id).ToDictionary(a => new { a.Key.id, a.Key.value }).ToList();
-            var resultDic = result.ToDictionary(a => a.Key, b => b.Value);
-            //var rr = result.Zip(result, (i, j) => i.id == j.id ? i.value + j.value : i.value).ToList();
-            //var res = resultDic
-            //            .SelectMany(d => d.Value)
-            //            .GroupBy(kvp => kvp.Va)
-            //            .ToDictionary(g => g.Key, g => g.Sum(kvp => kvp.Value));
+            var result = a.GroupBy(l => new { id = l % 10, value = l }).OrderBy(a => a.Key.id).Select(a => new { a.Key.id, a.Key.value }).ToList();
+            List<Tuple<int, int>> sum = new List<Tuple<int, int>>();
+            
+            //Sum values
+            foreach (var item in result)
+            {
+                int currentKey = item.id;
+                
+                sum.Add(new Tuple<int, int>(currentKey, result.Where(j => j.id == currentKey).Sum(o => o.value)));
+            }
 
-            //ver 
-            //https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.selectmany?view=net-7.0
-            //Falta percorrer o array e sumar os valores onde a key e igual
-            return null;
+            var list = sum.GroupBy(x => x.Item1).Select(y => y.First()).ToList();//Remove duplicates
+            List<string> res = list.Select(i => i.Item1 + ": " + i.Item2).ToList();//Parse to string 
+            return res;
             
         }
 
