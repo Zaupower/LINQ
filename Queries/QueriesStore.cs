@@ -206,8 +206,8 @@ namespace Queries
             //Indication. Use the GroupBy method.
 
             var result = a.GroupBy(l => new { Id = l % 10, Value = l }).OrderBy(a => a.Key.Id).Select(a => new { a.Key.Id, a.Key.Value }).ToList();
-            var sumByKey = result.GroupBy(x => x.Id).Select(g => new { Id = g.Key, Sum = g.Sum(x => x.Value) }).ToList();//Sum by id and remove dupliates
-            var listString = sumByKey.Select(y => y.Id + ": "+ y.Sum).ToList();//Cast to Sring
+            var sumByKey = result.GroupBy(x => x.Id).Select(g => new { Id = g.Key, Sum = g.Sum(x => x.Value) }).ToList();//Sum by id and remove duplicates
+            var listString = sumByKey.Select(y => y.Id + ": "+ y.Sum).ToList();//Cast to String
             return listString;
             
         }
