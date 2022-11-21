@@ -157,17 +157,31 @@ namespace Queries
             //determined by the last digits of the original numbers.
             //Represent the found union as a sequence of strings containing the first and second elements of the pair,
             //separated by a hyphen, e.g. "49-129".
-            List<string> res = new List<string>();
-            foreach (int aItem in a)
-            {
-                var bItemList = b.Where(i => aItem % 10 == i % 10).ToList();
 
-                foreach (int bItem in bItemList)
+
+            //List<string> res = new List<string>();
+            //foreach (int aItem in a)
+            //{
+            //    var bItemList = b.Where(i => aItem % 10 == i % 10).ToList();
+
+            //    foreach (int bItem in bItemList)
+            //    {
+            //        res.Add(aItem + " - " + bItem);
+            //    }
+            //}
+            //return res;
+
+            var query =
+                from aItem in a
+                join bItem in b on aItem%10 equals bItem%10
+                select new
                 {
-                    res.Add(aItem + " - " + bItem);
-                }
-            }
-            return res;
+                    aResult = aItem,
+                    bResult = bItem
+                };
+
+            List<string> resultUnion = query.Select(i => i.aResult + " - " + i.bResult).ToList();
+            return resultUnion;
         }
 
         public static IEnumerable<string> Query14(IEnumerable<string> a, IEnumerable<string> b)
