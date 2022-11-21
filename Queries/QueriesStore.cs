@@ -179,19 +179,18 @@ namespace Queries
             //colon-separated, e.g. "AB: CD". The order of the pairs must be determined by the order
             //first elements of pairs (in ascending order), and for equal first elements - by the order of the second elements of pairs (in descending order).
 
-
-            //maybe useful??
-            //https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.prepend?view=net-7.0
-            List<string> res = new List<string>();
-            foreach (string aItem in a)
-            {
-                var bItemList = b.Where(i => aItem.Length == i.Length).ToList();
-                foreach (string bItem in bItemList)
+            var query =
+                from aItem in a
+                join bItem in b on aItem.Length equals bItem.Length
+                select new
                 {
-                    res.Add(aItem + ":" + bItem);
-                }
-            }
-            return res.OrderByDescending(i=>i);
+                    aResult = aItem,
+                    bResult = bItem
+                };
+
+            var result = query.OrderBy(i=>i.aResult).ThenByDescending(j=>j.bResult).ToList();
+            List<string> resultStrring = result.Select(i=> i.aResult+":"+i.bResult ).ToList();
+            return resultStrring;
         }
 
         public static IEnumerable<string> Query15(IEnumerable<int> a)
