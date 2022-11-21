@@ -106,12 +106,10 @@ namespace Queries
             //greater D (not including it), and the second - all elements, starting from the element with the ordinal number K.
             //Sort the resulting sequence (not containing identical elements) in descending order.
 
-            List<int> result11 = new List<int>();
-            List<int> result22 = new List<int>();
-            result11 = a.TakeWhile( i=> i.CompareTo(d) < 1).ToList();
-            result22 = k > 0 ? a.Skip(k-1).ToList() : new List<int>();
+            List<int> result1 = a.TakeWhile( i=> i.CompareTo(d) < 1).ToList();
+            List<int> result2 = k > 0 ? a.Skip(k-1).ToList() : new List<int>();
 
-            List<int> resultConcat = result11.Concat(result22).Distinct().OrderByDescending(i => i).ToList();
+            List<int> resultConcat = result1.Concat(result2).Distinct().OrderByDescending(i => i).ToList();
 
             return resultConcat;
         }
@@ -194,8 +192,8 @@ namespace Queries
                 };
 
             var result = query.OrderBy(i=>i.aResult).ThenByDescending(j=>j.bResult).ToList();
-            List<string> resultStrring = result.Select(i=> i.aResult+":"+i.bResult ).ToList();
-            return resultStrring;
+            List<string> resultString = result.Select(i=> i.aResult+":"+i.bResult ).ToList();
+            return resultString;
         }
 
         public static IEnumerable<string> Query15(IEnumerable<int> a)
