@@ -29,6 +29,7 @@ namespace Queries
         {
             //There is a sequence of strings.
             //Combine all strings into one.
+            
             return str.Aggregate((current, next) => current + next);
         }
 
@@ -54,6 +55,7 @@ namespace Queries
         {
             //Query4. Given a C character and a string sequence A.
             //Find the number of A elements that contain more than one character, provided that these elements start and end with C.
+            
             int counter = str.Count((i => i.Length > 1 && i[0].Equals(c) && i[i.Length-1].Equals( c)));
             return counter;
         }
@@ -70,6 +72,7 @@ namespace Queries
         {
             //Query6. A string sequence is given.
             //Get a string consisting of the initial characters of all strings in the source sequence.
+            
             string initials = str.Where(s => !string.IsNullOrEmpty(s))
                           .Aggregate("", (xs, x) => xs + x.First());
             return initials;
@@ -81,6 +84,7 @@ namespace Queries
             //Find the set-theoretic difference of two fragments A: the first contains all even numbers,
             //and the second - all numbers with ordinal numbers greater than K.
             //In the resulting sequence (not containing identical elements), reverse the order of the elements.
+            
             int[] result = k> 0 ? a.Take(k).Where(i => i % 2 == 0 ).Distinct().ToArray() : new int[0];
             return result.Reverse();
         }
@@ -90,6 +94,7 @@ namespace Queries
             //Query8. An integer K (> 0) and a string sequence A are given.
             //Sequence strings contain only numbers and capital letters of the Latin alphabet.
             //Extract from A all strings of length K that end in a digit, sorting them in an ascending order.
+            
             IEnumerable<string> result = a.Where(s => k > 0 && s.Length == k && char.IsDigit(s.Last())).OrderBy(i => i);
             return result;
         }
@@ -101,8 +106,6 @@ namespace Queries
             //greater D (not including it), and the second - all elements, starting from the element with the ordinal number K.
             //Sort the resulting sequence (not containing identical elements) in descending order.
 
-            //d e k > 0
-            //Take from index k to the end 
             List<int> result11 = new List<int>();
             List<int> result22 = new List<int>();
             result11 = a.TakeWhile( i=> i.CompareTo(d) < 1).ToList();
@@ -130,6 +133,7 @@ namespace Queries
             //if the corresponding string of the source sequence has an odd length, then as
             //character the first character of this string is taken; otherwise, the last character of the string is taken.
             //Sort the received characters in descending order of their codes.
+            
             char[] strOds = str.Where(i => !string.IsNullOrEmpty(i) && i.Length % 2 == 0 ).Select(i => i.Last()).ToArray();
             char[] strEvens = str.Where(i => !string.IsNullOrEmpty(i) && i.Length % 2 != 0).Select(i => i.First()).ToArray();
             char[] result = strOds.Concat(strEvens).OrderByDescending(i => i).ToArray();
@@ -157,19 +161,6 @@ namespace Queries
             //determined by the last digits of the original numbers.
             //Represent the found union as a sequence of strings containing the first and second elements of the pair,
             //separated by a hyphen, e.g. "49-129".
-
-
-            //List<string> res = new List<string>();
-            //foreach (int aItem in a)
-            //{
-            //    var bItemList = b.Where(i => aItem % 10 == i % 10).ToList();
-
-            //    foreach (int bItem in bItemList)
-            //    {
-            //        res.Add(aItem + " - " + bItem);
-            //    }
-            //}
-            //return res;
 
             var query =
                 from aItem in a
