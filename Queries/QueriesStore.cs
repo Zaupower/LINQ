@@ -39,15 +39,8 @@ namespace Queries
             //Output the first string from A that starts with a digit and has length L.
             //If there are no required strings in the sequence A, then output the string "Not found".
             //Indication. To handle the situation associated with the absence of required rows, use the ?? operation.
-            string result;
-
-            try{
-                result = str.First(i => l > 0 && i.Length == l && char.IsDigit(i[0]));
-            }
-            catch
-            {
-                return "Not found";
-            }
+            string result = str.FirstOrDefault(i => l > 0 && i.Length == l && char.IsDigit(i[0])) ?? "Not found";
+            
             return result;
         }
 
